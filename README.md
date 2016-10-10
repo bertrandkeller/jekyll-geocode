@@ -17,10 +17,10 @@ Example of configuration in the _config.yml
 jekyll_geocode:
   file-name: members.yml # Name of the YML store inside _data with a list of data
   file-path: _data # Path of the YML file, folder of your data (_data) by default (optional)
-  name: name # Name of the field which will gave the name of the generated file (called in a loop by site.data.[name_of_field])
+  name: name # Name of the field  in the YML that will gave the name of the generated file (called in a loop by site.data.[name_of_field])
   address: adresse # Name of the address field in the YML
-  town: town # Name of the town field in the YML, if you have a seperated field address and town (optional)
-  region: region # Insert the name of a region or a country  (optional)
+  town: town # Name of the town field in the YML, if you have a separeted field address and town (optional)
+  region: region # Name of the region or country or the both field in the YML (optional)
   cache: true # Test if a file already exist
 ```
 
