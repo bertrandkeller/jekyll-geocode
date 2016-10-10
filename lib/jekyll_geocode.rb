@@ -8,9 +8,12 @@ module Jekyll_Get
     priority :highest
 
     def generate(site)
+
+      #Get Geo service
+      geo_service = 'https://nominatim.openstreetmap.org/?format=json&q='
+
       #Get Config
       config = site.config['jekyll_geocode']
-      geo_service = 'https://nominatim.openstreetmap.org/?format=json&q='
 
       if !config
         return
@@ -24,17 +27,19 @@ module Jekyll_Get
         geo_region     = site.config['jekyll_geocode']['region']
       end
 
+      # Define data source
       if !filepath
         data_source = (site.config['data_source'])
       else
         data_source = (filepath)
       end
 
-      #File.file?(filename)
-
       # Load YML file
       members = YAML.load_file("#{data_source}/#{filename}")
+
+      # Loop YML file
       members.each do |d|
+        # Test if a JSON file exists for performance issues
         if !File.file?("#{data_source}/#{d[geo_name]}.json")
           if d[geo_town]
             geo_town_field = ",#{d[geo_town]}"
@@ -45,6 +50,7 @@ module Jekyll_Get
           json = URI.encode("#{geo_service}#{d[geo_address]}#{geo_town_field}#{geo_region_field}&limit=1")
           source = JSON.load(open(json))
           site.data[d[geo_name]] = source
+          #Create a Json  file if cache is enabled
           if site.config['jekyll_geocode']['cache']
             path = "#{data_source}/#{d[geo_name]}.json"
             open(path, 'wb') do |file|
