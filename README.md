@@ -11,17 +11,47 @@ I took the [Nominatim](https://nominatim.openstreetmap.org/) open source service
 
 The service is very slow (when you have lot of entries) but you can generate files with the cache option. Be carefull, ignore this files in your git tracking files !
 
-Example of configuration in the _config.yml
+## Example of YAML : _data/members.yml
+
+```yaml
+- name: "John Doe"
+  address: "rue Mendès France"
+  postcode: 76190
+  city: "Yvetot"
+  region: "normandy"
+  country: "france"  
+- name: "Samuel Le Bihan"
+  address: "place du général de Gaulle France"
+  postcode: 76000
+  city: "Rouen"
+  region: "Normandy"
+  country: "france"
+```
+
+> For key matching, avoid accent in name or create a key in members.yml (ex: geoname) without space and accent.
+
+## Example of configuration _config.yml
 
 ```yaml
 jekyll_geocode:
-  file-name: members.yml # Name of the YML store inside _data with a list of data
+  file-name: members.yml # Name of the YML store inside _data with a list of datas (required)
   file-path: _data # Path of the YML file, folder of your data (_data) by default (optional)
-  name: name # Name of the field  in the YML that will gave the name of the generated file (called in a loop by site.data.[name_of_field])
-  address: adresse # Name of the address field in the YML
-  town: town # Name of the town field in the YML, if you have a separeted field address and town (optional)
-  region: region # Name of the region or country or the both field in the YML (optional)
+  name: name # Name of the field from the YML that will gave the name of the generated file (the name will be downcase and space replace by a dash) (required)
+  address: address # Name of the address (street + city) or only street field (if city field exists) from the YML (required)
+  postcode: postcode # Postcode from the YML (optional)
+  city: city # Name of the town field from the YML, if you have a separated field address and city (optional)
+  region: region # Name of the region, county or state or all in the same field from the YML (optional)
+  country: country # Name of the country from the YML (optional)
   cache: true # Test if a file already exist
 ```
 
-This plugin is used in a production website. You are invited for improvement proposals.
+## Example of loop : map.html with google map
+
+```liquid
+{% for row in site.data.members | sort: 'name' %}
+    {% assign geoname = name | replace: ' ', '-' | downcase %}
+    var point = new google.maps.LatLng({% for coordinates in site.data.[row.geoname] %}{{ coordinates.lat }}, {{ coordinates.lon }}{% endfor %});
+{% endfor %}
+```
+
+This plugin is used in a production website and working well. You are invited for improvement proposals.
