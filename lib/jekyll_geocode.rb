@@ -23,8 +23,10 @@ module Jekyll_Get
         filepath       = site.config['jekyll_geocode']['file-path']
         geo_name       = site.config['jekyll_geocode']['name']
         geo_address    = site.config['jekyll_geocode']['address']
-        geo_town       = site.config['jekyll_geocode']['town']
+        geo_postcode   = site.config['jekyll_geocode']['postcode']
+        geo_city       = site.config['jekyll_geocode']['city']
         geo_region     = site.config['jekyll_geocode']['region']
+        geo_country    = site.config['jekyll_geocode']['country']
       end
 
       # Define data source
@@ -41,20 +43,27 @@ module Jekyll_Get
       members.each do |d|
         # Test if a JSON file exists for performance issues
         if !File.file?("#{data_source}/#{d[geo_name]}.json")
-          if d[geo_town]
-            geo_town_field = ",#{d[geo_town]}"
+          if d[geo_postcode]
+            geo_postcode_field = ",#{d[geo_postcode]}"
+          end
+          if d[geo_city]
+            geo_city_field = ",#{d[geo_city]}"
           end
           if d[geo_region]
             geo_region_field = ",#{d[geo_region]}"
           end
-          json = URI.encode("#{geo_service}#{d[geo_address]}#{geo_town_field}#{geo_region_field}&limit=1")
+          if d[geo_country]
+            geo_country_field = ",#{d[geo_country]}"
+          end
+          json = URI.encode("#{geo_service}#{d[geo_address]}#{geo_postcode_field}#{geo_city_field}#{geo_region_field}#{geo_country_field}&limit=1")
+          geo_name_field = d[geo_name].downcase.tr(" ", "-")
           source = JSON.load(open(json))
-          site.data[d[geo_name]] = source
-          #Create a Json  file if cache is enabled
+          site.data[geo_name_field] = source
+          #Create a JSON  file if cache is enabled
           if site.config['jekyll_geocode']['cache']
-            path = "#{data_source}/#{d[geo_name]}.json"
+            path = "#{data_source}/#{geo_name_field}.json"
             open(path, 'wb') do |file|
-              file << JSON.generate(site.data[d['nom_entier']])
+              file << JSON.generate(site.data[geo_name_field])
             end
           end
         end
