@@ -48,8 +48,8 @@ jekyll_geocode:
 
 ```liquid
 {% for row in site.data.members | sort: 'name' %}
-    {% assign geoname = name | replace: ' ', '-' | downcase %}
-    var point = new google.maps.LatLng({% for coordinates in site.data.[row.geoname] %}{{ coordinates.lat }}, {{ coordinates.lon }}{% endfor %});
+    {% assign geoname = row.name | replace: ' ', '-' | downcase %}
+    var point = new google.maps.LatLng({% for coordinates in site.data.[geoname] %}{{ coordinates.lat }}, {{ coordinates.lon }}{% endfor %});
 {% endfor %}
 ```
 
