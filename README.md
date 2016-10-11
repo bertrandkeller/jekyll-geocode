@@ -9,8 +9,6 @@ For speed reasons you‘d rather writing the coordinates in files during the bui
 
 I took the [Nominatim](https://nominatim.openstreetmap.org/) open source service from Open Street Map for calling the data. 
 
-The service is very slow (when you have lot of entries) but you can generate files with the cache option. Be carefull, ignore this files in your git tracking files !
-
 ## Example of YAML : _data/members.yml
 
 ```yaml
@@ -44,6 +42,7 @@ jekyll_geocode:
   country: country # Name of the country from the YML (optional)
   cache: true # Test if a file already exist
 ```
+> The service is very slow (when you have lot of entries) but you can generate files with the cache option. Be carefull, ignore this files in your git tracking files !
 
 ## Example of loop : map.html with google map
 
