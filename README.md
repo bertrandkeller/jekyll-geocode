@@ -41,6 +41,7 @@ jekyll_geocode:
   region: region # Name of the region, county or state or all in the same field from the YML (optional)
   country: country # Name of the country from the YML (optional)
   cache: true # Test if a file already exist
+  outputfile: place.yml # Give the name of the file for an yml output (otherwise it is several JSON) <= usefull for jekyll-map (not working the file will always be place.yml)
 ```
 > The service is very slow (when you have lot of entries) but you can generate files with the cache option. Be carefull, ignore this files in your git tracking files !
 
