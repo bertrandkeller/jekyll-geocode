@@ -2,6 +2,7 @@ require "rubygems"
 require 'json'
 require 'yaml'
 require 'open-uri'
+require "i18n"
 
 module Jekyll_Get
   class Generator < Jekyll::Generator
@@ -52,6 +53,7 @@ module Jekyll_Get
       members.each do |d|
         # Test if a JSON file exists for performance issues
         if !File.file?("#{data_source}/#{d[geo_name]}.json")
+          geo_name_field = I18n.transliterate(d[geo_name]).downcase.tr(" ", "-")
           if d[geo_postcode]
             geo_postcode_field = ",#{d[geo_postcode]}"
           end
