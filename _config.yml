@@ -1,0 +1,58 @@
+# Site settings
+title: Jekyll Geocode
+email: bertrand.keller@gmail.com
+description: Jekyll plugin for geo encode addresses
+baseurl: ""
+url: ""
+permalink: /:year/:month/:day/:title/
+timezone: Europe/Paris
+lang: fr
+
+repository: bertrandkeller/jekyll-geocode
+branch: master
+
+twitter:
+    username: bertrandkeller
+github:
+    username: bertrandkeller
+
+social:
+  type: organization
+  links:
+    - https://twitter.com/bertrandkeller
+    - https://github.com/bertrandkeller
+
+markdown: kramdown
+kramdown:
+   input: GFM
+
+jekyll_geocode:
+  file-name: members.yml
+  file-path: _data
+  name: name
+  address: street
+  ville: city
+  region: region
+  postcode: postalcode
+  outputfile: places.yml
+
+sass:
+    style: compressed
+
+exclude:
+    - .editorconfig
+    - .gitignore
+    - CNAME
+    - Gemfile
+    - Gemfile.lock
+    - LICENSE
+    - README.md
+
+gems:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-mentions
+  - jekyll-github-metadata
+  - jekyll-paginate
+  - jekyll-maps

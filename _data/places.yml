@@ -1,0 +1,18 @@
+- title: Bertrand Keller
+  url: "#places-01"
+  data_set: '01'
+  location:
+    latitude: '50.6257603'
+    longitude: '3.0644377'
+- title: Maison Natale de Jeanne d'Arc
+  url: "#places-01"
+  data_set: '01'
+  location:
+    latitude: '48.4412388'
+    longitude: '5.6738373'
+- title: Maison de Jeanne d'Arc
+  url: "#places-01"
+  data_set: '01'
+  location:
+    latitude: '47.9008551'
+    longitude: '1.9027546'

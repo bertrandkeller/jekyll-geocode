@@ -1,0 +1,33 @@
+
+body {
+  margin: 0;
+  font-family: Lato, Arial;
+  font-weight: 300;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  padding: 2rem 0.5rem;
+  height: 40vh;
+  text-align: center;
+  color: #fff;
+  background: #000;
+}
+
+h1 {
+  font-size: 3rem;
+  align-self: center;
+}
+
+header p {
+ align-self: center;
+ font-size: 1.15rem;
+}
+
+main {
+  margin: 2rem auto 10rem;
+  max-width: 50rem;
+}

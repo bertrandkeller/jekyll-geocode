@@ -1,0 +1,193 @@
+<script type='text/javascript'>
+  /* global google */
+/* global MarkerClusterer */
+// eslint-disable-next-line no-unused-vars
+var jekyllMaps = (function () {
+  'use strict'
+  var clusterSettings = {}
+  var clusterReady = false
+  var mapReady = false
+  var options = {}
+  var data = []
+  var maps = []
+
+  return {
+    initializeMap: initializeMap,
+    initializeCluster: initializeCluster,
+    register: register
+  }
+
+  /**
+   * Setup Google Maps options and call renderer.
+   */
+  function initializeMap () {
+    options = {
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      center: new google.maps.LatLng(0, 0)
+    }
+    mapReady = true
+    render()
+  }
+
+  /**
+   * Register map data to be rendered once Google Maps API is loaded.
+   *
+   * @param string id
+   * @param Array locations
+   * @param Object settings
+   */
+  function register (id, locations, options) {
+    data.push({ id: id, locations: locations, options: options })
+    render()
+  }
+
+  /**
+   * Render maps data if Google Maps API is loaded.
+   */
+  function render () {
+    if (!mapReady) return
+
+    while (data.length > 0) {
+      var item = data.pop()
+      var bounds = new google.maps.LatLngBounds()
+      var mapOptions = Object.assign({}, options, item.options)
+      var map = new google.maps.Map(document.getElementById(item.id), mapOptions)
+      var infoWindow = new google.maps.InfoWindow()
+      var markers = item.locations.map(createMarker)
+
+      map.fitBounds(bounds)
+      google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+        if (this.customZoom) this.setZoom(this.customZoom)
+      })
+      if (mapOptions.useCluster) {
+        maps.push({ map: map, markers: markers })
+        processCluster()
+      }
+    }
+
+    function createMarker (location) {
+      var position = new google.maps.LatLng(location.latitude, location.longitude)
+      var marker = new google.maps.Marker({
+        position: position,
+        title: location.title,
+        image: location.image,
+        url: location.url,
+        map: map
+      })
+
+      bounds.extend(position)
+      if (mapOptions.showMarkerPopup) marker.addListener('click', markerPopup)
+
+      return marker
+    }
+
+    function markerPopup () {
+      var contentString = '<div class="map-info-window"><h5>' + this.title + '</h5>'
+      var link = 'View'
+      if (this.image.length > 0) {
+        link = '<img src="' + this.image + '" alt="' + this.title + '"/>'
+      }
+      contentString += '<a href="' + this.url + '">' + link + '</a></div>'
+      infoWindow.setContent(contentString)
+      infoWindow.open(map, this)
+    }
+  }
+
+  function initializeCluster (settings) {
+    clusterReady = true
+    clusterSettings = settings || {}
+    processCluster()
+  }
+
+  function processCluster () {
+    if (!clusterReady) return
+
+    while (maps.length > 0) {
+      var obj = maps.pop()
+      // eslint-disable-next-line no-new
+      new MarkerClusterer(obj.map, obj.markers, {
+        gridSize: clusterSettings.grid_size || 25,
+        imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m'
+      })
+    }
+  }
+}())
+/* Object.assign polyfill */
+if (typeof Object.assign !== 'function') {
+  Object.assign = function (target) {
+    'use strict'
+    if (target == null) {
+      throw new TypeError('Cannot convert undefined or null to object')
+    }
+
+    target = Object(target)
+    for (var index = 1; index < arguments.length; index++) {
+      var source = arguments[ index ]
+      if (source != null) {
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[ key ] = source[ key ]
+          }
+        }
+      }
+    }
+    return target
+  }
+}
+
+</script>
+<script async defer src='https://maps.googleapis.com/maps/api/js?key=&callback=jekyllMaps.initializeMap'></script>
+
+<script async defer src='https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js'
+        onload='jekyllMaps.initializeCluster({})'></script>
+
+
+
+<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="main.css">
+  <link rel="dns-prefetch" href="//fonts.googleapis.com/" data-proofer-ignore="">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+  <link rel="canonical" href="/">
+  <link rel="alternate" type="application/atom+xml" title="Jekyll Geocode" href="/feed.xml">
+  <!-- Begin Jekyll SEO tag v2.0.0 -->
+<title>Jekyll Geocode - Jekyll plugin for geo encode addresses</title>
+<meta property="og:title" content="Jekyll Geocode">
+<meta name="description" content="Jekyll plugin for geo encode addresses">
+<meta property="og:description" content="Jekyll plugin for geo encode addresses">
+<link rel="canonical" href="http://github.com/pages/bertrandkeller/jekyll-geocode/">
+<meta property="og:url" content="http://github.com/pages/bertrandkeller/jekyll-geocode/">
+<meta property="og:site_name" content="Jekyll Geocode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@bertrandkeller">
+<script type="application/ld+json">
+  {
+    "<a href="https://github.com/context" class="user-mention">@context</a>": "http://schema.org",
+    "<a href="https://github.com/type" class="user-mention">@type</a>": "WebSite",
+    "name": "Jekyll Geocode",
+    "headline": "Jekyll Geocode",
+    "description": "Jekyll plugin for geo encode addresses",
+    "sameAs": ["https://twitter.com/bertrandkeller","https://github.com/bertrandkeller"],
+    "url": "http://github.com/pages/bertrandkeller/jekyll-geocode/"
+  }
+</script>
+<!-- End Jekyll SEO tag -->  
+
+<header>
+  <h1>Jekyll Geocode</h1>
+  <p>Encode addresses from an YAML file and export them to a JSON or another a YAML for drawing maps</p>
+</header>
+<main>
+  <h2>Example of map generate with Jekyll-Geocode and Jekyll-Map</h2>
+  <div id="places" style="width:100%;height:400px;"></div>
+<script type="text/javascript">
+  jekyllMaps.register(
+    'places',
+    [{"latitude":"50.6257603","longitude":"3.0644377","title":"Bertrand Keller","url":"#places-01","image":""},{"latitude":"48.4412388","longitude":"5.6738373","title":"Maison Natale de Jeanne d'Arc","url":"#places-01","image":""},{"latitude":"47.9008551","longitude":"1.9027546","title":"Maison de Jeanne d'Arc","url":"#places-01","image":""}],
+    {"useCluster":true,"showMarkerPopup":true}
+  );
+</script>
+
+</main>
+
