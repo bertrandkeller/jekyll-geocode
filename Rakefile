@@ -4,7 +4,7 @@ require "bundler/setup"
 require "jekyll"
 
 # Indiquez le nom de votre dépôt
-GITHUB_REPONAME = "bertrandkeller/jekyll-feed"
+GITHUB_REPONAME = "bertrandkeller/jekyll-geocode"
 
 namespace :site do
   desc "Génération des fichiers du site"
@@ -29,6 +29,7 @@ namespace :site do
       message = "Site mis à jour le #{Time.now.utc}"
       system "git commit -m #{message.inspect}"
       system "git remote add origin git@github.com:#{GITHUB_REPONAME}.git"
+      p "git remote add origin git@github.com:#{GITHUB_REPONAME}.git"
       system "git push origin master:refs/heads/gh-pages --force"
 
       Dir.chdir pwd

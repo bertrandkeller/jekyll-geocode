@@ -53,6 +53,6 @@ gems:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-mentions
-  - jekyll-github-metadata
+  #- jekyll-github-metadata
   - jekyll-paginate
   - jekyll-maps
