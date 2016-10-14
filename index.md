@@ -45,10 +45,11 @@ jekyll_geocode:
   outputfile: places.yml
 
 gems:
+  - jekyll-geocode
   - jekyll-maps
 
 exclude:
-    - _data/places.yml
+    - _data/places.yml # Stop watching this file
 ```
 
 **Index.html**
