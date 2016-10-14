@@ -22,10 +22,10 @@ title: Jekyll Geocode
   region: "normandie"
   country: "france"  
 - name: "Samuel Le Bihan"
-  street: "rue de rivoli" 
-  postcode: "75000"
-  city: "Paris"
-  region: "Ile de France"
+  street: "2 Place Niemeyer" 
+  city: "Le Havre"
+  postcode: "76600"
+  region: "normandie"
   country: "france"
 ```
 
