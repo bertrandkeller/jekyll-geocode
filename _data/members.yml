@@ -8,7 +8,7 @@
 - name: "John Doe"
   address: "rue Mendès France"
   postcode: 76190
-  city: "Yvetot"
+  city: "Yvetot" 
   country: "france"  
 - name: "Samuel Le Bihan"
   address: "place du général de Gaulle France"
