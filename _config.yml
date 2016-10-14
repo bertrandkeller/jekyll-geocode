@@ -26,9 +26,9 @@ markdown: kramdown
 kramdown:
    input: GFM
 
-# maps:
-#   google:
-#     api_key: 'AIzaSyC5ItBhGY9-BCBdjm1D9ejkSrt2MY-7zzI '
+maps:
+  google:
+    api_key: 'AIzaSyC5ItBhGY9-BCBdjm1D9ejkSrt2MY-7zzI '
 
 jekyll_geocode:
   file-name: members.yml
