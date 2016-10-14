@@ -1,8 +1,7 @@
 $LOAD_PATH.unshift(File.expand_path("../lib", __FILE__))
-require "jekyll/geocode/version"
 
 Gem::Specification.new do |spec|
-  spec.version = Jekyll::Geocode::VERSION
+  spec.version = "0.1"
   spec.homepage = "https://bertrandkeller.github.io/jekyll-geocode/"
   spec.authors = ["Bertrand Keller"]
   spec.email = ["bertrand.keller@gmail.com"]
