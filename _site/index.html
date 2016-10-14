@@ -136,7 +136,7 @@ if (typeof Object.assign !== 'function') {
 }
 
 </script>
-<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyC5ItBhGY9-BCBdjm1D9ejkSrt2MY-7zzI &callback=jekyllMaps.initializeMap'></script>
+<script async defer src='https://maps.googleapis.com/maps/api/js?key=&callback=jekyllMaps.initializeMap'></script>
 
 <script async defer src='https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js'
         onload='jekyllMaps.initializeCluster({})'></script>
@@ -185,17 +185,24 @@ if (typeof Object.assign !== 'function') {
 <h3 id="take-a-yaml">Take a Yaml</h3>
 
 <div class="language-yaml highlighter-rouge">
-<pre class="highlight"><code><span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">John</span><span class="nv"> </span><span class="s">Doe"</span>
-  <span class="s">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rue</span><span class="nv"> </span><span class="s">Mendès</span><span class="nv"> </span><span class="s">France"</span>
-  <span class="s">postcode</span><span class="pi">:</span> <span class="s">76190</span>
-  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Yvetot"</span>
-  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">normandy"</span>
+<pre class="highlight"><code>
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Bertrand</span><span class="nv"> </span><span class="s">Keller"</span>
+  <span class="s">street</span><span class="pi">:</span> <span class="s2">"</span><span class="s">place</span><span class="nv"> </span><span class="s">du</span><span class="nv"> </span><span class="s">vieux</span><span class="nv"> </span><span class="s">marché"</span>
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">76000"</span>
+  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Rouen"</span>
+  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">normandie"</span>
+  <span class="s">country</span><span class="pi">:</span> <span class="s2">"</span><span class="s">france"</span> 
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">John</span><span class="nv"> </span><span class="s">Doe"</span>
+  <span class="s">street</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rue</span><span class="nv"> </span><span class="s">Mendès</span><span class="nv"> </span><span class="s">France"</span>
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">76190"</span>
+  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Yvetot"</span> 
+  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">normandie"</span>
   <span class="s">country</span><span class="pi">:</span> <span class="s2">"</span><span class="s">france"</span>  
 <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Samuel</span><span class="nv"> </span><span class="s">Le</span><span class="nv"> </span><span class="s">Bihan"</span>
-  <span class="s">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">place</span><span class="nv"> </span><span class="s">du</span><span class="nv"> </span><span class="s">général</span><span class="nv"> </span><span class="s">de</span><span class="nv"> </span><span class="s">Gaulle</span><span class="nv"> </span><span class="s">France"</span>
-  <span class="s">postcode</span><span class="pi">:</span> <span class="s">76000</span>
-  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Rouen"</span>
-  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Normandy"</span>
+  <span class="s">street</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rue</span><span class="nv"> </span><span class="s">de</span><span class="nv"> </span><span class="s">rivoli"</span> 
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">75000"</span>
+  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Paris"</span>
+  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Ile</span><span class="nv"> </span><span class="s">de</span><span class="nv"> </span><span class="s">France"</span>
   <span class="s">country</span><span class="pi">:</span> <span class="s2">"</span><span class="s">france"</span>
 </code></pre>
 </div>
@@ -217,6 +224,9 @@ if (typeof Object.assign !== 'function') {
 
 <span class="s">gems</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s">jekyll-maps</span>
+
+<span class="s">exclude</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">_data/places.yml</span>
 </code></pre>
 </div>
 
@@ -233,7 +243,7 @@ if (typeof Object.assign !== 'function') {
 <script type="text/javascript">
   jekyllMaps.register(
     'places',
-    [{"latitude":"49.4434462","longitude":"1.0872152","title":"Bertrand Keller","url":"#places-01","image":""},{"latitude":"49.0677708","longitude":"0.3138532","title":"John Doe","url":"#places-01","image":""},{"latitude":"48.6443057","longitude":"2.7537863","title":"Samuel Le Bihan","url":"#places-01","image":""}],
+    [{"latitude":"49.4441069","longitude":"1.0855603","title":"Bertrand Keller","url":"#Bertrand Keller","image":""},{"latitude":"49.6173057","longitude":"0.76523","title":"John Doe","url":"#John Doe","image":""},{"latitude":"48.9258715","longitude":"2.4292382","title":"Samuel Le Bihan","url":"#Samuel Le Bihan","image":""}],
     {"useCluster":true,"showMarkerPopup":true}
   );
 </script>

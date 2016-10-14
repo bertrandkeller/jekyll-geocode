@@ -1,19 +1,19 @@
 ---
 - title: Bertrand Keller
-  url: "#places-01"
+  url: "#Bertrand Keller"
   data_set: '01'
   location:
-    latitude: '49.4434462'
-    longitude: '1.0872152'
+    latitude: '49.4441069'
+    longitude: '1.0855603'
 - title: John Doe
-  url: "#places-01"
+  url: "#John Doe"
   data_set: '01'
   location:
-    latitude: '49.0677708'
-    longitude: '0.3138532'
+    latitude: '49.6173057'
+    longitude: '0.76523'
 - title: Samuel Le Bihan
-  url: "#places-01"
+  url: "#Samuel Le Bihan"
   data_set: '01'
   location:
-    latitude: '48.6443057'
-    longitude: '2.7537863'
+    latitude: '48.9258715'
+    longitude: '2.4292382'

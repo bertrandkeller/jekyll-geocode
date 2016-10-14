@@ -8,17 +8,24 @@ title: Jekyll Geocode
 ### Take a Yaml
 
 ```yaml
+
+- name: "Bertrand Keller"
+  street: "place du vieux marché"
+  postcode: "76000"
+  city: "Rouen"
+  region: "normandie"
+  country: "france" 
 - name: "John Doe"
-  address: "rue Mendès France"
-  postcode: 76190
-  city: "Yvetot"
-  region: "normandy"
+  street: "rue Mendès France"
+  postcode: "76190"
+  city: "Yvetot" 
+  region: "normandie"
   country: "france"  
 - name: "Samuel Le Bihan"
-  address: "place du général de Gaulle France"
-  postcode: 76000
-  city: "Rouen"
-  region: "Normandy"
+  street: "rue de rivoli" 
+  postcode: "75000"
+  city: "Paris"
+  region: "Ile de France"
   country: "france"
 ```
 
@@ -39,6 +46,9 @@ jekyll_geocode:
 
 gems:
   - jekyll-maps
+
+exclude:
+    - _data/places.yml
 ```
 
 **Index.html**

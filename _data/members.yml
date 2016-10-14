@@ -1,19 +1,21 @@
 
 - name: "Bertrand Keller"
-  street: "Rue de Crosne"
-  code-postal: "76000"
+  street: "place du vieux marché"
+  postcode: "76000"
   city: "Rouen"
   region: "normandie"
   country: "france" 
 - name: "John Doe"
-  address: "rue Mendès France"
-  postcode: 76190
+  street: "rue Mendès France"
+  postcode: "76190"
   city: "Yvetot" 
+  region: "normandie"
   country: "france"  
 - name: "Samuel Le Bihan"
-  address: "place du général de Gaulle France"
-  postcode: 75000
+  street: "rue de rivoli"
+  postcode: "75000"
   city: "Paris"
+  region: "Ile de France"
   country: "france"
 
   

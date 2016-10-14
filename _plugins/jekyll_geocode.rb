@@ -73,12 +73,13 @@ module Jekyll_Get
             geo_country_field = ",#{d[geo_country]}"
           end
           json = URI.encode("#{geo_service}#{d[geo_address]}#{geo_postcode_field}#{geo_city_field}#{geo_region_field}#{geo_country_field}&limit=1")
+          p json
           source = JSON.load(open(json))
 
           # Loop for an YML output
           if outputfile
             source.each do |coordinates|
-              data = [ "title" => "#{d[geo_name]}", "url" => "#places-01", "data_set" => "01", "location" => { "latitude" => "#{coordinates["lat"]}","longitude" => "#{coordinates["lon"]}" } ]
+              data = [ "title" => "#{d[geo_name]}", "url" => "##{d[geo_name]}", "data_set" => "01", "location" => { "latitude" => "#{coordinates["lat"]}","longitude" => "#{coordinates["lon"]}" } ]
               data_yml = data.to_yaml
               # Test if there is any yaml files and create file
               if !File.file?(path_yaml)
