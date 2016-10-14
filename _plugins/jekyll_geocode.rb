@@ -73,7 +73,6 @@ module Jekyll_Get
             geo_country_field = ",#{d[geo_country]}"
           end
           json = URI.encode("#{geo_service}#{d[geo_address]}#{geo_postcode_field}#{geo_city_field}#{geo_region_field}#{geo_country_field}&limit=1")
-          p json
           source = JSON.load(open(json))
 
           # Loop for an YML output
