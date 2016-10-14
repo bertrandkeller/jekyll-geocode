@@ -1,17 +1,19 @@
-- name: Bertrand Keller
-  street: "Rue Jeanne d'Arc"
+
+- name: "Bertrand Keller"
+  street: "Rue de Crosne"
   code-postal: "76000"
   city: "Rouen"
-  region: "France"
-- name: "Maison Natale de Jeanne d'Arc"
-  street: "2 Rue de la Basilique"
-  postalcode: "88630"
-  city: "Domrémy-la-Pucelle"
-  region: "France"
-- name: "Maison de Jeanne d'Arc"
-  street: "3 Place du Général de Gaulle,"
-  postalcode: "45000"
-  city: "Orléans"
-  region: "France"
+  region: "normandie"
+  country: "france" 
+- name: "John Doe"
+  address: "rue Mendès France"
+  postcode: 76190
+  city: "Yvetot"
+  country: "france"  
+- name: "Samuel Le Bihan"
+  address: "place du général de Gaulle France"
+  postcode: 75000
+  city: "Paris"
+  country: "france"
 
   

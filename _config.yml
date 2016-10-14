@@ -26,6 +26,10 @@ markdown: kramdown
 kramdown:
    input: GFM
 
+# maps:
+#   google:
+#     api_key: 'AIzaSyC5ItBhGY9-BCBdjm1D9ejkSrt2MY-7zzI '
+
 jekyll_geocode:
   file-name: members.yml
   file-path: _data
@@ -33,7 +37,7 @@ jekyll_geocode:
   address: street
   ville: city
   region: region
-  postcode: postalcode
+  #postcode: postalcode
   outputfile: places.yml
 
 sass:
@@ -53,6 +57,6 @@ gems:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-mentions
-  #- jekyll-github-metadata
+  - jekyll-github-metadata
   - jekyll-paginate
   - jekyll-maps

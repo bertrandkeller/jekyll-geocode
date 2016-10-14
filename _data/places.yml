@@ -1,18 +1,19 @@
+---
 - title: Bertrand Keller
   url: "#places-01"
   data_set: '01'
   location:
-    latitude: '50.6257603'
-    longitude: '3.0644377'
-- title: Maison Natale de Jeanne d'Arc
+    latitude: '49.4434462'
+    longitude: '1.0872152'
+- title: John Doe
   url: "#places-01"
   data_set: '01'
   location:
-    latitude: '48.4412388'
-    longitude: '5.6738373'
-- title: Maison de Jeanne d'Arc
+    latitude: '49.0677708'
+    longitude: '0.3138532'
+- title: Samuel Le Bihan
   url: "#places-01"
   data_set: '01'
   location:
-    latitude: '47.9008551'
-    longitude: '1.9027546'
+    latitude: '48.6443057'
+    longitude: '2.7537863'

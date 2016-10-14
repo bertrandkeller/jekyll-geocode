@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ "main.css" | prepend: site.baseurl }}">
+  <link rel="dns-prefetch" href="//fonts.googleapis.com/" data-proofer-ignore>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+  {% seo %}  
+</head> 
+<header>
+  <h1>{{ page.title }}</h1>
+  <p>Encode addresses from a YAML file and export them to a JSON or another YAML for drawing maps</p>
+</header>
+<main>
+{{ content }}
+</main>
+</html>

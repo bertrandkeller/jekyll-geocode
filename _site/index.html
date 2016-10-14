@@ -143,19 +143,22 @@ if (typeof Object.assign !== 'function') {
 
 
 
+
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="main.css">
-  <link rel="dns-prefetch" href="//fonts.googleapis.com/" data-proofer-ignore="">
+  <link rel="dns-prefetch" href="//fonts.googleapis.com/" data-proofer-ignore>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
   <link rel="canonical" href="/">
   <link rel="alternate" type="application/atom+xml" title="Jekyll Geocode" href="/feed.xml">
   <!-- Begin Jekyll SEO tag v2.0.0 -->
-<title>Jekyll Geocode - Jekyll plugin for geo encode addresses</title>
+<title>Jekyll Geocode - Jekyll Geocode</title>
 <meta property="og:title" content="Jekyll Geocode">
 <meta name="description" content="Jekyll plugin for geo encode addresses">
 <meta property="og:description" content="Jekyll plugin for geo encode addresses">
+<link rel="canonical" href="http://github.com/pages/bertrandkeller/jekyll-geocode/">
+<meta property="og:url" content="http://github.com/pages/bertrandkeller/jekyll-geocode/">
 <meta property="og:site_name" content="Jekyll Geocode">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@bertrandkeller">
@@ -167,26 +170,74 @@ if (typeof Object.assign !== 'function') {
     "headline": "Jekyll Geocode",
     "description": "Jekyll plugin for geo encode addresses",
     "sameAs": ["https://twitter.com/bertrandkeller","https://github.com/bertrandkeller"],
-    "url": "/"
+    "url": "http://github.com/pages/bertrandkeller/jekyll-geocode/"
   }
 </script>
 <!-- End Jekyll SEO tag -->  
-
+ 
 <header>
   <h1>Jekyll Geocode</h1>
-  <p>Encode addresses from an YAML file and export them to a JSON or another a YAML for drawing maps</p>
+  <p>Encode addresses from a YAML file and export them to a JSON or another YAML for drawing maps</p>
 </header>
 <main>
-  <h2>Example of map generated with Jekyll-Geocode and Jekyll-Map</h2>
-  <div id="places" style="width:100%;height:400px;"></div>
+<h2 id="example-of-map-generated-with-jekyll-geocode-and-jekyll-map">Example of map generated with Jekyll-Geocode and Jekyll-Map</h2>
+
+<h3 id="take-a-yaml">Take a Yaml</h3>
+
+<div class="language-yaml highlighter-rouge">
+<pre class="highlight"><code><span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">John</span><span class="nv"> </span><span class="s">Doe"</span>
+  <span class="s">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rue</span><span class="nv"> </span><span class="s">Mendès</span><span class="nv"> </span><span class="s">France"</span>
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s">76190</span>
+  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Yvetot"</span>
+  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">normandy"</span>
+  <span class="s">country</span><span class="pi">:</span> <span class="s2">"</span><span class="s">france"</span>  
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Samuel</span><span class="nv"> </span><span class="s">Le</span><span class="nv"> </span><span class="s">Bihan"</span>
+  <span class="s">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">place</span><span class="nv"> </span><span class="s">du</span><span class="nv"> </span><span class="s">général</span><span class="nv"> </span><span class="s">de</span><span class="nv"> </span><span class="s">Gaulle</span><span class="nv"> </span><span class="s">France"</span>
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s">76000</span>
+  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Rouen"</span>
+  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Normandy"</span>
+  <span class="s">country</span><span class="pi">:</span> <span class="s2">"</span><span class="s">france"</span>
+</code></pre>
+</div>
+
+<h3 id="configurate-jekyll">Configurate Jekyll</h3>
+
+<p><strong>_config.yml</strong></p>
+
+<div class="language-yaml highlighter-rouge">
+<pre class="highlight"><code><span class="s">jekyll_geocode</span><span class="pi">:</span>
+  <span class="s">file-name</span><span class="pi">:</span> <span class="s">members.yml</span>
+  <span class="s">file-path</span><span class="pi">:</span> <span class="s">_data</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">name</span>
+  <span class="s">address</span><span class="pi">:</span> <span class="s">street</span>
+  <span class="s">ville</span><span class="pi">:</span> <span class="s">city</span>
+  <span class="s">region</span><span class="pi">:</span> <span class="s">region</span>
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s">postalcode</span>
+  <span class="s">outputfile</span><span class="pi">:</span> <span class="s">places.yml</span>
+
+<span class="s">gems</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-maps</span>
+</code></pre>
+</div>
+
+<p><strong>Index.html</strong></p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">google_map</span><span class="w"> </span><span class="err">data_set:01</span><span class="w"> </span><span class="err">width:100%</span><span class="w"> </span><span class="err">id:places</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h3 id="it-will-generate-another-yaml-which-can-be-called-by-jekyll-map">It will generate another Yaml which can be called by Jekyll Map</h3>
+
+<div id="places" style="width:100%;height:400px;"></div>
 <script type="text/javascript">
   jekyllMaps.register(
     'places',
-    [{"latitude":"50.6257603","longitude":"3.0644377","title":"Bertrand Keller","url":"#places-01","image":""},{"latitude":"48.4412388","longitude":"5.6738373","title":"Maison Natale de Jeanne d'Arc","url":"#places-01","image":""},{"latitude":"47.9008551","longitude":"1.9027546","title":"Maison de Jeanne d'Arc","url":"#places-01","image":""}],
+    [{"latitude":"49.4434462","longitude":"1.0872152","title":"Bertrand Keller","url":"#places-01","image":""},{"latitude":"49.0677708","longitude":"0.3138532","title":"John Doe","url":"#places-01","image":""},{"latitude":"48.6443057","longitude":"2.7537863","title":"Samuel Le Bihan","url":"#places-01","image":""}],
     {"useCluster":true,"showMarkerPopup":true}
   );
 </script>
 
-  <a href="https://github.com/bertrandkeller/jekyll-geocode">Visit the repository for more information</a>
-</main>
+<p>For more information : <a href="https://github.com/bertrandkeller/jekyll-geocode">Visit the repository for more information</a></p>
 
+</main>

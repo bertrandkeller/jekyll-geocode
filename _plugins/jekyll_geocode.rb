@@ -48,9 +48,9 @@ module Jekyll_Get
       #Path
       path_yaml = "#{data_source}/#{outputfile}"
 
-      if File.file?(path_yaml) && outputfile
-        File.open(path_yaml, 'w') {|file| file.truncate(0) }
-      end
+      # if File.file?(path_yaml) && outputfile
+      #   File.open(path_yaml, 'w') {|file| file.truncate(0) }
+      # end
 
       # Load YML file
       members = YAML.load_file("#{data_source}/#{filename}")
@@ -79,7 +79,7 @@ module Jekyll_Get
           if outputfile
             source.each do |coordinates|
               data = [ "title" => "#{d[geo_name]}", "url" => "#places-01", "data_set" => "01", "location" => { "latitude" => "#{coordinates["lat"]}","longitude" => "#{coordinates["lon"]}" } ]
-              data_yml = data.to_yaml.gsub("---", "").gsub(regEx, '')
+              data_yml = data.to_yaml
               # Test if there is any yaml files and create file
               if !File.file?(path_yaml)
                 File.open(path_yaml, "w") {|f| f.write(data_yml) }
@@ -87,8 +87,12 @@ module Jekyll_Get
               # Test if there is yaml files and add data recursively
               if File.file?(path_yaml)
                 File.open(path_yaml, 'a') { |f|
-                  f.puts data_yml
+                  data_yml_simple = data_yml.gsub("---", "").gsub(regEx, '')
+                  f.puts data_yml_simple
                 }
+                file_yaml = YAML.load(File.open(path_yaml))
+                file_yaml_uniq = file_yaml.uniq { |s| s.first }
+                File.open(path_yaml, "w") {|f| f.write(file_yaml_uniq.to_yaml) }
               end
             end
           # Loop for an JSON output
