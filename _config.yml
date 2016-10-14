@@ -37,7 +37,7 @@ jekyll_geocode:
   address: street
   city: city
   region: region
-  postcode: postcode
+  #postcode: postcode
   country: country
   outputfile: places.yml
 

@@ -3,8 +3,8 @@
   url: "#Bertrand Keller"
   data_set: '01'
   location:
-    latitude: '49.4441069'
-    longitude: '1.0855603'
+    latitude: '49.4435322'
+    longitude: '1.0885966'
 - title: John Doe
   url: "#John Doe"
   data_set: '01'
@@ -15,5 +15,5 @@
   url: "#Samuel Le Bihan"
   data_set: '01'
   location:
-    latitude: '48.9258715'
-    longitude: '2.4292382'
+    latitude: '49.4906992'
+    longitude: '0.1067813'

@@ -3,7 +3,7 @@ layout: default
 title: Jekyll Geocode
 ---
 
-## Example of map generated with Jekyll-Geocode and Jekyll-Map
+## Example of map generated with Jekyll Geocode and Jekyll Map
 
 ### Take a Yaml
 
@@ -49,7 +49,7 @@ gems:
   - jekyll-maps
 
 exclude:
-    - _data/places.yml # Stop watching this file
+    - _data/places.yml # Maybe stop watching this file
 ```
 
 **Index.html**
@@ -61,5 +61,7 @@ exclude:
 ### It will generate another Yaml which can be called by Jekyll Map
 
 {% google_map data_set:01 width:100% id:places %}
+
+Discover Jekyll Map : <a href="https://github.com/ayastreb/jekyll-maps">Jekyll Map Github repositery</a>
 
 For more information : <a href="https://github.com/bertrandkeller/jekyll-geocode">Visit the repository for more information</a>
