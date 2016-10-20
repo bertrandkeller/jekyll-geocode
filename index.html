@@ -1,0 +1,257 @@
+<script type='text/javascript'>
+  /* global google */
+/* global MarkerClusterer */
+// eslint-disable-next-line no-unused-vars
+var jekyllMaps = (function () {
+  'use strict'
+  var clusterSettings = {}
+  var clusterReady = false
+  var mapReady = false
+  var options = {}
+  var data = []
+  var maps = []
+
+  return {
+    initializeMap: initializeMap,
+    initializeCluster: initializeCluster,
+    register: register
+  }
+
+  /**
+   * Setup Google Maps options and call renderer.
+   */
+  function initializeMap () {
+    options = {
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      center: new google.maps.LatLng(0, 0)
+    }
+    mapReady = true
+    render()
+  }
+
+  /**
+   * Register map data to be rendered once Google Maps API is loaded.
+   *
+   * @param string id
+   * @param Array locations
+   * @param Object settings
+   */
+  function register (id, locations, options) {
+    data.push({ id: id, locations: locations, options: options })
+    render()
+  }
+
+  /**
+   * Render maps data if Google Maps API is loaded.
+   */
+  function render () {
+    if (!mapReady) return
+
+    while (data.length > 0) {
+      var item = data.pop()
+      var bounds = new google.maps.LatLngBounds()
+      var mapOptions = Object.assign({}, options, item.options)
+      var map = new google.maps.Map(document.getElementById(item.id), mapOptions)
+      var infoWindow = new google.maps.InfoWindow()
+      var markers = item.locations.map(createMarker)
+
+      map.fitBounds(bounds)
+      google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+        if (this.customZoom) this.setZoom(this.customZoom)
+      })
+      if (mapOptions.useCluster) {
+        maps.push({ map: map, markers: markers })
+        processCluster()
+      }
+    }
+
+    function createMarker (location) {
+      var position = new google.maps.LatLng(location.latitude, location.longitude)
+      var marker = new google.maps.Marker({
+        position: position,
+        title: location.title,
+        image: location.image,
+        url: location.url,
+        map: map
+      })
+
+      bounds.extend(position)
+      if (mapOptions.showMarkerPopup) marker.addListener('click', markerPopup)
+
+      return marker
+    }
+
+    function markerPopup () {
+      var contentString = '<div class="map-info-window"><h5>' + this.title + '</h5>'
+      var link = 'View'
+      if (this.image.length > 0) {
+        link = '<img src="' + this.image + '" alt="' + this.title + '"/>'
+      }
+      contentString += '<a href="' + this.url + '">' + link + '</a></div>'
+      infoWindow.setContent(contentString)
+      infoWindow.open(map, this)
+    }
+  }
+
+  function initializeCluster (settings) {
+    clusterReady = true
+    clusterSettings = settings || {}
+    processCluster()
+  }
+
+  function processCluster () {
+    if (!clusterReady) return
+
+    while (maps.length > 0) {
+      var obj = maps.pop()
+      // eslint-disable-next-line no-new
+      new MarkerClusterer(obj.map, obj.markers, {
+        gridSize: clusterSettings.grid_size || 25,
+        imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m'
+      })
+    }
+  }
+}())
+/* Object.assign polyfill */
+if (typeof Object.assign !== 'function') {
+  Object.assign = function (target) {
+    'use strict'
+    if (target == null) {
+      throw new TypeError('Cannot convert undefined or null to object')
+    }
+
+    target = Object(target)
+    for (var index = 1; index < arguments.length; index++) {
+      var source = arguments[ index ]
+      if (source != null) {
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[ key ] = source[ key ]
+          }
+        }
+      }
+    }
+    return target
+  }
+}
+
+</script>
+<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyC5ItBhGY9-BCBdjm1D9ejkSrt2MY-7zzI&callback=jekyllMaps.initializeMap'></script>
+
+<script async defer src='https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js'
+        onload='jekyllMaps.initializeCluster({})'></script>
+
+
+
+
+<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="main.css">
+  <link rel="dns-prefetch" href="//fonts.googleapis.com/" data-proofer-ignore>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+  <link rel="canonical" href="/">
+  <link rel="alternate" type="application/atom+xml" title="Jekyll Geocode" href="/feed.xml">
+  <!-- Begin Jekyll SEO tag v2.0.0 -->
+<title>Jekyll Geocode - Jekyll Geocode</title>
+<meta property="og:title" content="Jekyll Geocode">
+<meta name="description" content="Jekyll plugin for geo encode addresses">
+<meta property="og:description" content="Jekyll plugin for geo encode addresses">
+<link rel="canonical" href="http://github.com/pages/bertrandkeller/jekyll-geocode/">
+<meta property="og:url" content="http://github.com/pages/bertrandkeller/jekyll-geocode/">
+<meta property="og:site_name" content="Jekyll Geocode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@bertrandkeller">
+<script type="application/ld+json">
+  {
+    "<a href="https://github.com/context" class="user-mention">@context</a>": "http://schema.org",
+    "<a href="https://github.com/type" class="user-mention">@type</a>": "WebSite",
+    "name": "Jekyll Geocode",
+    "headline": "Jekyll Geocode",
+    "description": "Jekyll plugin for geo encode addresses",
+    "sameAs": ["https://twitter.com/bertrandkeller","https://github.com/bertrandkeller"],
+    "url": "http://github.com/pages/bertrandkeller/jekyll-geocode/"
+  }
+</script>
+<!-- End Jekyll SEO tag -->  
+ 
+<header>
+  <h1>Jekyll Geocode</h1>
+  <p>Encode addresses from a YAML file and export them to a JSON or another YAML for drawing maps</p>
+</header>
+<main>
+<h2 id="example-of-map-generated-with-jekyll-geocode-and-jekyll-map">Example of map generated with Jekyll Geocode and Jekyll Map</h2>
+
+<h3 id="take-a-yaml">Take a Yaml</h3>
+
+<div class="language-yaml highlighter-rouge">
+<pre class="highlight"><code>
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Bertrand</span><span class="nv"> </span><span class="s">Keller"</span>
+  <span class="s">street</span><span class="pi">:</span> <span class="s2">"</span><span class="s">place</span><span class="nv"> </span><span class="s">du</span><span class="nv"> </span><span class="s">vieux</span><span class="nv"> </span><span class="s">marché"</span>
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">76000"</span>
+  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Rouen"</span>
+  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">normandy"</span>
+  <span class="s">country</span><span class="pi">:</span> <span class="s2">"</span><span class="s">france"</span> 
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">John</span><span class="nv"> </span><span class="s">Doe"</span>
+  <span class="s">street</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rue</span><span class="nv"> </span><span class="s">Mendès</span><span class="nv"> </span><span class="s">France"</span>
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">76190"</span>
+  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Yvetot"</span> 
+  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">normandy"</span>
+  <span class="s">country</span><span class="pi">:</span> <span class="s2">"</span><span class="s">france"</span>  
+<span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Samuel</span><span class="nv"> </span><span class="s">Le</span><span class="nv"> </span><span class="s">Bihan"</span>
+  <span class="s">street</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Place</span><span class="nv"> </span><span class="s">Niemeyer"</span> 
+  <span class="s">city</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Le</span><span class="nv"> </span><span class="s">Havre"</span>
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">76600"</span>
+  <span class="s">region</span><span class="pi">:</span> <span class="s2">"</span><span class="s">normandy"</span>
+  <span class="s">country</span><span class="pi">:</span> <span class="s2">"</span><span class="s">france"</span>
+</code></pre>
+</div>
+
+<h3 id="configurate-jekyll">Configurate Jekyll</h3>
+
+<p><strong>_config.yml</strong></p>
+
+<div class="language-yaml highlighter-rouge">
+<pre class="highlight"><code><span class="s">jekyll_geocode</span><span class="pi">:</span>
+  <span class="s">file-name</span><span class="pi">:</span> <span class="s">members.yml</span>
+  <span class="s">file-path</span><span class="pi">:</span> <span class="s">_data</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">name</span>
+  <span class="s">address</span><span class="pi">:</span> <span class="s">street</span>
+  <span class="s">city</span><span class="pi">:</span> <span class="s">city</span>
+  <span class="s">region</span><span class="pi">:</span> <span class="s">region</span>
+  <span class="s">country</span><span class="pi">:</span> <span class="s">country</span>
+  <span class="s">postcode</span><span class="pi">:</span> <span class="s">postalcode</span>
+  <span class="s">outputfile</span><span class="pi">:</span> <span class="s">places.yml</span>
+
+<span class="s">gems</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-geocode</span>
+  <span class="pi">-</span> <span class="s">jekyll-maps</span>
+
+<span class="s">exclude</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">_data/places.yml</span> <span class="c1"># Maybe stop watching this file</span>
+</code></pre>
+</div>
+
+<p><strong>Index.html</strong></p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">google_map</span><span class="w"> </span><span class="err">data_set:01</span><span class="w"> </span><span class="err">width:100%</span><span class="w"> </span><span class="err">id:places</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h3 id="it-will-generate-another-yaml-which-can-be-called-by-jekyll-map">It will generate another Yaml which can be called by Jekyll Map</h3>
+
+<div id="places" style="width:100%;height:400px;"></div>
+<script type="text/javascript">
+  jekyllMaps.register(
+    'places',
+    [{"latitude":"49.4435322","longitude":"1.0885966","title":"Bertrand Keller","url":"#Bertrand Keller","image":""},{"latitude":"49.6173057","longitude":"0.76523","title":"John Doe","url":"#John Doe","image":""},{"latitude":"49.4906992","longitude":"0.1067813","title":"Samuel Le Bihan","url":"#Samuel Le Bihan","image":""}],
+    {"useCluster":true,"showMarkerPopup":true}
+  );
+</script>
+
+<p>Discover Jekyll Map : <a href="https://github.com/ayastreb/jekyll-maps">Jekyll Map Github repositery</a></p>
+
+<p>For more information : <a href="https://github.com/bertrandkeller/jekyll-geocode">Visit the repository for more information</a></p>
+
+</main>
