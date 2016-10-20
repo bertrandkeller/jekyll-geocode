@@ -12,17 +12,23 @@ I took the [Nominatim](https://nominatim.openstreetmap.org/) open source service
 ## Example of YAML : _data/members.yml
 
 ```yaml
+- name: "Bertrand Keller"
+  street: "place du vieux marché"
+  postcode: "76000"
+  city: "Rouen"
+  region: "normandy"
+  country: "france" 
 - name: "John Doe"
-  address: "rue Mendès France"
-  postcode: 76190
-  city: "Yvetot"
+  street: "rue Mendès France"
+  postcode: "76190"
+  city: "Yvetot" 
   region: "normandy"
   country: "france"  
 - name: "Samuel Le Bihan"
-  address: "place du général de Gaulle France"
-  postcode: 76000
-  city: "Rouen"
-  region: "Normandy"
+  street: "Place Niemeyer" 
+  city: "Le Havre"
+  postcode: "76600"
+  region: "normandy"
   country: "france"
 ```
 
