@@ -4,7 +4,7 @@ require 'yaml'
 require 'open-uri'
 require "i18n"
 
-module Jekyll_Get
+module Jekyll_Geocode
   class Generator < Jekyll::Generator
     safe true
     priority :highest
