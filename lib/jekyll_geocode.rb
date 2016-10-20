@@ -9,6 +9,10 @@ module Jekyll_Geocode
     safe true
     priority :highest
 
+    def request_service(url)
+      JSON.load(open(URI.encode(url)))
+    end
+
     def generate(site)
 
       #regEx for removing empty line
