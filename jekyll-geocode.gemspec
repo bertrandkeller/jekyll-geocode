@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
     Geocode addresses from a YAML for drawing maps (with https://nominatim.openstreetmap.org)
   DESC
 
-  spec.add_runtime_dependency "jekyll", ">= 3.0", "< 4.0"
+  spec.add_runtime_dependency "jekyll", ">= 3.0", "< 4.4"
 
-  spec.add_development_dependency "bundler", "~> 1.12"
+  spec.add_development_dependency "bundler", "~> 2.1.0"
 end
